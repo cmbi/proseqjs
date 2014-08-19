@@ -1,0 +1,9 @@
+# Vim
+*.sw[a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# Bower
+bower_components/
