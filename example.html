@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  </head>
+  <body>
+    <canvas id="canvas" width="960" height="400"></canvas>
+    <script src="bower_components/tinycolor/tinycolor.js"></script>
+    <script src="proseq.js"></script>
+    <script defer="defer">
+      var seq = 'GSDNAEKGKVSNDDASVDFVAEPVKLPENQTRVAFFYDRAVPIGMLRPGQNIEST' +
+                'FVYQENDLRLNCLLLTPLPSFCPDSTSGPVKTKAPVQWRWVRSGGTTNFPLMTKQ' +
+                'DYAFLCFSPFTYYKCDLEVTVSALGTDTVASVLRWAPTGAPADVTDQLIGYTPSL' +
+                'GETRNPHMWLVGAGNTQISFVVPYNSPLSVLPAAWFNGWSDFGNTKDFGVAPNAD' +
+                'FGRLWIQGNTSASVRIRYKKMKVFCPRPTLFFPWPVSTRSKINADNPVPILELE';
+
+      // Create random sec structure
+      var sst = new Array();
+      for (var i = 0; i < seq.length; i++) {
+        var val = Math.floor(Math.random() * (4 - 1) + 0);
+        if (val == 0) {
+          sst.push('H');
+        } else if (val == 1) {
+          sst.push('S');
+        } else {
+          sst.push('T');
+        }
+      }
+
+      // Create random accessibility values
+      var acc = new Array();
+      for (var i = 0; i < seq.length; i++) {
+        acc.push(Math.random() * (100.0 - 0.0) + 0.0);
+      }
+
+      ProteinSequence("canvas", seq, sst, acc);
+    </script>
+  </body>
+</html>
