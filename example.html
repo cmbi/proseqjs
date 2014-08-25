@@ -32,7 +32,8 @@
         acc.push(Math.random() * (100.0 - 0.0) + 0.0);
       }
 
-      ProteinSequence("canvas", seq, sst, acc);
+      var seq = ProteinSequence("canvas", seq, sst, acc);
+      seq.update();
     </script>
   </body>
 </html>
