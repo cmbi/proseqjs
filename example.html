@@ -39,7 +39,17 @@
         acc.push((Math.random() * (100.0 - 0.0) + 0.0).toFixed(2));
       }
 
-      var proseq = new ProteinSequence("canvas", seq, sst, acc);
+      // Create random contact values
+      var con = '';
+      for (var i = 0; i < seq.length; i++) {
+        if (Math.random().toFixed(2) > 0.5) {
+          con += ' ';
+        } else {
+          con += '*';
+        }
+      }
+
+      var proseq = new ProteinSequence("canvas", seq, sst, acc, con);
       proseq.update();
     </script>
   </body>

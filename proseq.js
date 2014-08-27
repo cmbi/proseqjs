@@ -1,4 +1,4 @@
-ProteinSequence = function(container_id, seq, sst, acc) {
+ProteinSequence = function(container_id, seq, sst, acc, con) {
   // TODO: Check arguments are same length
   // TODO: Private methods are actually publicly visible.
   // TODO: All methods are recreated per instance. Is this a problem?
@@ -9,7 +9,7 @@ ProteinSequence = function(container_id, seq, sst, acc) {
   // Constants
   const MAX_RES_PER_ROW = 60;
   const SEQ_LAYER_OFFSET_X = 20;
-  const SST_MARGIN_T = 20;
+  const SST_MARGIN_T = 30;
   const FONT_FAMILY = "Monospace";
   const FONT_SIZE = 16;
   const ROW_HEIGHT = 60;
@@ -20,6 +20,7 @@ ProteinSequence = function(container_id, seq, sst, acc) {
   this.seq = seq;
   this.sst = sst;
   this.acc = acc;
+  this.con = con;
 
   // Tinycolor saturate doesn't appear to work, so use desaturate to create the
   // colour list and reverse it.
@@ -203,6 +204,18 @@ ProteinSequence = function(container_id, seq, sst, acc) {
       {
         // Residue including accessibility
         var res_text_width = this.draw_residue(j, x, y);
+
+        // Contacts
+        if (con[j] != ' ') {
+          var contact_line = new Kinetic.Line({
+            points: [x + 2,
+                     y + SST_MARGIN_T - 10,
+                     x + res_text_width - 2,
+                     y + SST_MARGIN_T - 10],
+            stroke: 'black'
+          });
+          this.seq_layer.add(contact_line);
+        }
 
         // Secondary structure
         switch (sst[j]) {
