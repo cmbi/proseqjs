@@ -47,16 +47,29 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
       fontFamily: FONT_FAMILY,
       fill: this.colors[color_pos].toHexString()
     });
+
+    var res_text_w = res_text.getTextWidth();
+    var res_text_h = res_text.getTextHeight();
+
+    this.register_tooltip(
+        res_text,
+        x + (res_text_w / 2),
+        y + res_text_h,
+        this.acc[res_num]);
     this.seq_layer.add(res_text);
 
-    return res_text.getTextWidth();
+    return res_text_w;
   }
 
   this.draw_tooltip = function(x, y, message) {
-    // The stage is a little higher than it needs to be in order for the
-    // tooltip on the last row to be visible. Ideally we should change the
-    // direction of the tooltip.
-    tooltip = new Kinetic.Label({x: x, y: y, opacity: 0.75});
+    // The stage is a little higher than it needs to be so that the tooltip on
+    // the last row is visible. Ideally we should change the direction of the
+    // tooltip.
+    tooltip = new Kinetic.Label({
+      x: x,
+      y: y,
+      opacity: 0.75
+    });
     tooltip_tag = new Kinetic.Tag({
       fill: 'gray',
       pointerDirection: 'up',

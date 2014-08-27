@@ -36,7 +36,7 @@
       // Create random accessibility values
       var acc = new Array();
       for (var i = 0; i < seq.length; i++) {
-        acc.push(Math.random() * (100.0 - 0.0) + 0.0);
+        acc.push((Math.random() * (100.0 - 0.0) + 0.0).toFixed(2));
       }
 
       var proseq = new ProteinSequence("canvas", seq, sst, acc);
