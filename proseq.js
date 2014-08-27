@@ -22,7 +22,17 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
   this.acc = acc;
   this.acc_min = Math.min.apply(Math, acc);
   this.acc_max = Math.max.apply(Math, acc);
-  this.colors = tinycolor("#DD8CFF").monochromatic(10);
+
+  // Tinycolor saturate doesn't appear to work, so use desaturate to create the
+  // colour list and reverse it.
+  //
+  // 8 Buckets are used because the range of all accessibility values tends to
+  // filter off after 80.
+  this.colors = new Array();
+  for (var i = 0; i < 8; i++) {
+    this.colors.push(tinycolor("#BA00FF").desaturate(i * 12.5));
+  }
+  this.colors.reverse();
 
   this.stage = new Kinetic.Stage({
     container: canvas_id,
@@ -35,15 +45,14 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
   // Private methods
   this.draw_residue = function(res_num, x, y) {
     var r = seq.charAt(res_num);
-    var normalised_acc = (
-        (this.acc[res_num] - this.acc_min)/(this.acc_max - this.acc_min) * 90
-    );
-    var color_pos = Math.floor(normalised_acc / 10);
+    var color_pos = Math.floor(this.acc[res_num] / 10);
+    var color_pos = (color_pos > 7 ? 7 : color_pos);
     var res_text = new Kinetic.Text({
       x: x,
       y: y,
       text: r,
       fontSize: FONT_SIZE,
+      fontStyle: 'bold',
       fontFamily: FONT_FAMILY,
       fill: this.colors[color_pos].toHexString()
     });
@@ -171,6 +180,7 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
         y: y,
         text: i * MAX_RES_PER_ROW + 1,
         fontSize: FONT_SIZE,
+        fontStyle: 'bold',
         fontFamily: FONT_FAMILY,
         fill: 'gray'
       });
