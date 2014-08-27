@@ -1,4 +1,4 @@
-ProteinSequence = function(canvas_id, seq, sst, acc) {
+ProteinSequence = function(container_id, seq, sst, acc) {
   // TODO: Check arguments are same length
   // TODO: Private methods are actually publicly visible.
   // TODO: All methods are recreated per instance. Is this a problem?
@@ -35,7 +35,7 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
   this.colors.reverse();
 
   this.stage = new Kinetic.Stage({
-    container: canvas_id,
+    container: container_id,
     width: 900,
     height: ROWS * ROW_HEIGHT + 25
   });
