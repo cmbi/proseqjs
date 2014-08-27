@@ -27,7 +27,7 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
   this.stage = new Kinetic.Stage({
     container: canvas_id,
     width: 900,
-    height: ROWS * ROW_HEIGHT
+    height: ROWS * ROW_HEIGHT + 25
   });
   this.v_header_layer = new Kinetic.Layer();
   this.seq_layer = new Kinetic.Layer();
@@ -52,10 +52,56 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
     return res_text.getTextWidth();
   }
 
+  this.draw_tooltip = function(x, y, message) {
+    // The stage is a little higher than it needs to be in order for the
+    // tooltip on the last row to be visible. Ideally we should change the
+    // direction of the tooltip.
+    tooltip = new Kinetic.Label({x: x, y: y, opacity: 0.75});
+    tooltip_tag = new Kinetic.Tag({
+      fill: 'gray',
+      pointerDirection: 'up',
+      pointerWidth: 10,
+      pointerHeight: 10,
+      lineJoin: 'round',
+      shadowColor: 'black',
+      shadowBlur: 3,
+      shadowOffset: {x:2, y:2},
+      shadowOpacity: 0.5
+    });
+    tooltip_text = new Kinetic.Text({
+      text: message,
+      fontFamily: FONT_FAMILY,
+      fontSize: FONT_SIZE,
+      padding: 5,
+      fill: 'white'
+    });
+    tooltip.add(tooltip_tag);
+    tooltip.add(tooltip_text);
+
+    this.seq_layer.add(tooltip);
+    this.seq_layer.draw();
+
+    return tooltip;
+  }
+
+  this.register_tooltip = function(src, x, y, message) {
+    var proseq = this;
+    var tooltip;
+    src.on('mouseenter', function() {
+      tooltip = proseq.draw_tooltip(x, y, message);
+    });
+
+    src.on('mouseleave', function() {
+      tooltip.destroy();
+      proseq.seq_layer.draw();
+    });
+  }
+
   this.draw_helix = function(x, y, w, h) {
     var rect = new Kinetic.Rect({
       x: x, y: y, width: w, height: h, fill: 'blue'
     });
+    this.register_tooltip(rect, x + (w / 2), y + h, "Alpha Helix");
     this.seq_layer.add(rect);
   }
 
@@ -63,6 +109,7 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
     var rect = new Kinetic.Rect({
       x: x, y: y, width: w, height: h, fill: 'red'
     });
+    this.register_tooltip(rect, x + (w / 2), y + h, "Beta Strand");
     this.seq_layer.add(rect);
   }
 
@@ -70,6 +117,7 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
     var rect = new Kinetic.Rect({
       x: x, y: y, width: w, height: h, fill: 'green'
     });
+    this.register_tooltip(rect, x + (w / 2), y + h, "Turn");
     this.seq_layer.add(rect);
   }
 
@@ -77,13 +125,15 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
     var rect = new Kinetic.Rect({
       x: x, y: y, width: w, height: h, fill: 'black'
     });
+    this.register_tooltip(rect, x + (w / 2), y + h, "Loop");
     this.seq_layer.add(rect);
   }
 
-  this.draw_3helix = function(x, y, w, h) {
+  this.draw_pi_helix = function(x, y, w, h) {
     var rect = new Kinetic.Rect({
       x: x, y: y, width: w, height: h, fill: 'purple'
     });
+    this.register_tooltip(rect, x + (w / 2), y + h, "Pi Helix");
     this.seq_layer.add(rect);
   }
 
@@ -91,6 +141,7 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
     var rect = new Kinetic.Rect({
       x: x, y: y, width: w, height: h, fill: 'yellow'
     });
+    this.register_tooltip(rect, x + (w / 2), y + h, "310 Helix");
     this.seq_layer.add(rect);
   }
 
@@ -142,7 +193,7 @@ ProteinSequence = function(canvas_id, seq, sst, acc) {
                   break;
         case ' ': this.draw_loop(x, y + SST_MARGIN_T, res_text_width, 20);
                   break;
-        case 'G': this.draw_3helix(x, y + SST_MARGIN_T, res_text_width, 20);
+        case 'G': this.draw_pi_helix(x, y + SST_MARGIN_T, res_text_width, 20);
                   break;
         case '3': this.draw_310helix(x, y + SST_MARGIN_T, res_text_width, 20);
                   break;
