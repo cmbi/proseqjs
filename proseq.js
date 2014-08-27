@@ -20,8 +20,6 @@ ProteinSequence = function(container_id, seq, sst, acc) {
   this.seq = seq;
   this.sst = sst;
   this.acc = acc;
-  this.acc_min = Math.min.apply(Math, acc);
-  this.acc_max = Math.max.apply(Math, acc);
 
   // Tinycolor saturate doesn't appear to work, so use desaturate to create the
   // colour list and reverse it.
