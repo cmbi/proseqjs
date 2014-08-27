@@ -1,6 +1,6 @@
 {
   "name": "proseqjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "authors": [
     "Jon Black <Jon.Black@radboudumc.nl>"
   ],
@@ -14,6 +14,7 @@
     "tests"
   ],
   "dependencies": {
-    "tinycolor": "~1.0.0"
+    "tinycolor": "~1.0.0",
+    "kineticjs": "~5.1.0"
   }
 }

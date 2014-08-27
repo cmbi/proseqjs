@@ -1,0 +1,13 @@
+# 0.0.2 (27-08-2014)
+
+	* Use characters for secondary structure tooltip names (#9)
+	* Add visualisation for solvent accessibility from DSP (#8)
+	* Use a fixed colour scale to show accessibility (#7)
+	* Add README (#5)
+	* Add contact from DSP (#3)
+	* Add a tooltip for accessibility values (#2)
+	* Explain secondary structure colours (#1)
+
+# 0.0.1
+
+	* First release
