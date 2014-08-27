@@ -1,4 +1,4 @@
-ProteinSequence = function(container_id, seq, sst, acc, con) {
+ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
   // TODO: Check arguments are same length
   // TODO: Private methods are actually publicly visible.
   // TODO: All methods are recreated per instance. Is this a problem?
@@ -12,7 +12,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con) {
   const SST_MARGIN_T = 30;
   const FONT_FAMILY = "Monospace";
   const FONT_SIZE = 16;
-  const ROW_HEIGHT = 60;
+  const ROW_HEIGHT = 80;
   const ROW_MARGIN_T = 0;
   const ROWS = Math.ceil(seq.length / MAX_RES_PER_ROW);
 
@@ -21,6 +21,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con) {
   this.sst = sst;
   this.acc = acc;
   this.con = con;
+  this.sac = sac;
 
   // Tinycolor saturate doesn't appear to work, so use desaturate to create the
   // colour list and reverse it.
@@ -207,12 +208,14 @@ ProteinSequence = function(container_id, seq, sst, acc, con) {
 
         // Contacts
         if (con[j] != ' ') {
-          var contact_line = new Kinetic.Line({
-            points: [x + 2,
-                     y + SST_MARGIN_T - 10,
-                     x + res_text_width - 2,
-                     y + SST_MARGIN_T - 10],
-            stroke: 'black'
+          var contact_line = new Kinetic.Text({
+            x: x,
+            y: y + SST_MARGIN_T - 17.5,
+            text: '-',
+            fontSize: FONT_SIZE,
+            fontStyle: 'bold',
+            fontFamily: FONT_FAMILY,
+            fill: 'black'
           });
           this.seq_layer.add(contact_line);
         }
@@ -233,6 +236,20 @@ ProteinSequence = function(container_id, seq, sst, acc, con) {
                   break;
         default:
           console.error("Unexpected secondary structure type: " + sst[j]);
+        }
+
+        // Solvent accessibility
+        if (sac[j] != ' ') {
+          var sac_hat = new Kinetic.Text({
+            x: x,
+            y: y + (SST_MARGIN_T * 2) - 5,
+            text: '^',
+            fontSize: FONT_SIZE,
+            fontStyle: 'bold',
+            fontFamily: FONT_FAMILY,
+            fill: 'black'
+          });
+          this.seq_layer.add(sac_hat);
         }
 
         x = x + res_text_width;

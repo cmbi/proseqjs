@@ -49,7 +49,17 @@
         }
       }
 
-      var proseq = new ProteinSequence("canvas", seq, sst, acc, con);
+      // Create random contact values
+      var sac = '';
+      for (var i = 0; i < seq.length; i++) {
+        if (Math.random().toFixed(2) > 0.5) {
+          sac += ' ';
+        } else {
+          sac += 'A';
+        }
+      }
+
+      var proseq = new ProteinSequence("canvas", seq, sst, acc, con, sac);
       proseq.update();
     </script>
   </body>
