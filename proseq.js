@@ -123,7 +123,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
     var rect = new Kinetic.Rect({
       x: x, y: y, width: w, height: h, fill: 'blue'
     });
-    this.register_tooltip(rect, x + (w / 2), y + h, "Alpha Helix");
+    this.register_tooltip(rect, x + (w / 2), y + h, "α Helix");
     this.seq_layer.add(rect);
   }
 
@@ -131,7 +131,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
     var rect = new Kinetic.Rect({
       x: x, y: y, width: w, height: h, fill: 'red'
     });
-    this.register_tooltip(rect, x + (w / 2), y + h, "Beta Strand");
+    this.register_tooltip(rect, x + (w / 2), y + h, "β Strand");
     this.seq_layer.add(rect);
   }
 
@@ -155,7 +155,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
     var rect = new Kinetic.Rect({
       x: x, y: y, width: w, height: h, fill: 'purple'
     });
-    this.register_tooltip(rect, x + (w / 2), y + h, "Pi Helix");
+    this.register_tooltip(rect, x + (w / 2), y + h, "π Helix");
     this.seq_layer.add(rect);
   }
 
