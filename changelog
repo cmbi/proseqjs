@@ -1,3 +1,7 @@
+# 0.0.3 (04-09-2014)
+
+	* Remove pi-helix and 3-10 helix
+
 # 0.0.2 (27-08-2014)
 
 	* Use characters for secondary structure tooltip names (#9)
