@@ -151,22 +151,6 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
     this.seq_layer.add(rect);
   }
 
-  this.draw_pi_helix = function(x, y, w, h) {
-    var rect = new Kinetic.Rect({
-      x: x, y: y, width: w, height: h, fill: 'purple'
-    });
-    this.register_tooltip(rect, x + (w / 2), y + h, "π-helix");
-    this.seq_layer.add(rect);
-  }
-
-  this.draw_310helix = function(x, y, w, h) {
-    var rect = new Kinetic.Rect({
-      x: x, y: y, width: w, height: h, fill: 'yellow'
-    });
-    this.register_tooltip(rect, x + (w / 2), y + h, "3/10-helix");
-    this.seq_layer.add(rect);
-  }
-
   this.draw = function() {
     var rows = Math.ceil(seq.length / MAX_RES_PER_ROW);
     var v_header_width = 0;
@@ -229,10 +213,6 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
         case 'T': this.draw_turn(x, y + SST_MARGIN_T, res_text_width, 20);
                   break;
         case ' ': this.draw_loop(x, y + SST_MARGIN_T, res_text_width, 20);
-                  break;
-        case 'G': this.draw_pi_helix(x, y + SST_MARGIN_T, res_text_width, 20);
-                  break;
-        case '3': this.draw_310helix(x, y + SST_MARGIN_T, res_text_width, 20);
                   break;
         default:
           console.error("Unexpected secondary structure type: " + sst[j]);
