@@ -3,7 +3,7 @@ proseqjs is a javascript canvas library for visualising protein sequences.
 It currently supports visualising the following:
 
 * Molecular accessible surface area;
-* Secondary structure;
+* Secondary structure (4-state);
 * Symmetry contacts;
 * Solvent accessibility.
 
