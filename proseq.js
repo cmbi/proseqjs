@@ -132,7 +132,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
 
   this.draw_helix = function(x, y, w, h) {
     var rect = new Kinetic.Rect({
-      x: x, y: y, width: w, height: h, fill: 'blue'
+      x: x, y: y, width: w, height: h, fill: '#2424B3'
     });
     this.register_tooltip(rect, x + (w / 2), y + h, "α-helix");
     this.seq_layer.add(rect);
@@ -140,7 +140,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
 
   this.draw_strand = function(x, y, w, h) {
     var rect = new Kinetic.Rect({
-      x: x, y: y, width: w, height: h, fill: 'red'
+      x: x, y: y, width: w, height: h, fill: '#B32424'
     });
     this.register_tooltip(rect, x + (w / 2), y + h, "β-strand");
     this.seq_layer.add(rect);
@@ -148,7 +148,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
 
   this.draw_turn = function(x, y, w, h) {
     var rect = new Kinetic.Rect({
-      x: x, y: y, width: w, height: h, fill: 'green'
+      x: x, y: y, width: w, height: h, fill: '#6BB324'
     });
     this.register_tooltip(rect, x + (w / 2), y + h, "Turn");
     this.seq_layer.add(rect);
