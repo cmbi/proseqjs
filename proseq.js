@@ -5,6 +5,8 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
   // TODO: Fit to canvas width.
   // TODO: Resize canvas when browser resized.
   // TODO: Pass settings in constructor
+  // TODO: Smarter positioning of (long) tooltips
+  // TODO: Multiple types of info in tooltips
 
   // Constants
   const MAX_RES_PER_ROW = 60;
@@ -45,8 +47,17 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
   // Private methods
   this.draw_residue = function(res_num, x, y) {
     var r = seq.charAt(res_num);
-    var color_pos = Math.floor(this.acc[res_num] / 10);
-    var color_pos = (color_pos > 7 ? 7 : color_pos);
+    var v = this.acc[res_num];
+
+    // Reason for absent acc value
+    var letter_col = 'black';
+    if (!isNaN(v)) {
+      // Molecular accessibility (A^2)
+      var color_pos = Math.floor(v / 10);
+      var color_pos = (color_pos > 7 ? 7 : color_pos);
+      letter_col = this.colors[color_pos].toHexString();
+    }
+
     var res_text = new Kinetic.Text({
       x: x,
       y: y,
@@ -54,7 +65,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
       fontSize: FONT_SIZE,
       fontStyle: 'bold',
       fontFamily: FONT_FAMILY,
-      fill: this.colors[color_pos].toHexString()
+      fill: letter_col
     });
 
     var res_text_w = res_text.getTextWidth();
@@ -64,7 +75,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
         res_text,
         x + (res_text_w / 2),
         y + res_text_h,
-        this.acc[res_num]);
+        v);
     this.seq_layer.add(res_text);
 
     return res_text_w;
@@ -121,7 +132,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
 
   this.draw_helix = function(x, y, w, h) {
     var rect = new Kinetic.Rect({
-      x: x, y: y, width: w, height: h, fill: 'blue'
+      x: x, y: y, width: w, height: h, fill: '#2424B3'
     });
     this.register_tooltip(rect, x + (w / 2), y + h, "α-helix");
     this.seq_layer.add(rect);
@@ -129,7 +140,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
 
   this.draw_strand = function(x, y, w, h) {
     var rect = new Kinetic.Rect({
-      x: x, y: y, width: w, height: h, fill: 'red'
+      x: x, y: y, width: w, height: h, fill: '#B32424'
     });
     this.register_tooltip(rect, x + (w / 2), y + h, "β-strand");
     this.seq_layer.add(rect);
@@ -137,7 +148,7 @@ ProteinSequence = function(container_id, seq, sst, acc, con, sac) {
 
   this.draw_turn = function(x, y, w, h) {
     var rect = new Kinetic.Rect({
-      x: x, y: y, width: w, height: h, fill: 'green'
+      x: x, y: y, width: w, height: h, fill: '#6BB324'
     });
     this.register_tooltip(rect, x + (w / 2), y + h, "Turn");
     this.seq_layer.add(rect);
