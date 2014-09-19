@@ -17,19 +17,15 @@
       // Create random sec structure
       var sst = new Array();
       for (var i = 0; i < seq.length; i++) {
-        var val = Math.floor(Math.random() * (7 - 1) + 0);
+        var val = Math.floor(Math.random() * (5 - 1) + 0);
         if (val == 0) {
           sst.push('H');
         } else if (val == 1) {
           sst.push('S');
         } else if (val == 2) {
           sst.push('T');
-        } else if (val == 3) {
-          sst.push(' ');
-        } else if (val == 4) {
-          sst.push('G');
         } else {
-          sst.push('3');
+          sst.push(' ');
         }
       }
 

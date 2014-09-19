@@ -1,8 +1,9 @@
 {
   "name": "proseqjs",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "authors": [
-    "Jon Black <Jon.Black@radboudumc.nl>"
+    "Jon Black <Jon.Black@radboudumc.nl>",
+    "Wouter Touw <Wouter.Touw@radboudumc.nl>"
   ],
   "description": "A canvas library to draw protein sequences.",
   "license": "MIT",

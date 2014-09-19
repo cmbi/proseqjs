@@ -1,6 +1,13 @@
+# 0.0.4 (19-09-2014)
+
+	* Show reason for absent acc values (#15)
+	* Improve secondary structure colors (#16)
+	* Update screenshot
+	* Update example
+
 # 0.0.3 (04-09-2014)
 
-	* Remove pi-helix and 3-10 helix
+	* Remove pi-helix and 3-10 helix (#13)
 
 # 0.0.2 (27-08-2014)
 
